@@ -2768,6 +2768,8 @@ class Trainer:
                 scaled_loss.backward()
         else:
             self.accelerator.backward(loss)
+            
+        # self.accelerator.empty_cache()
 
         return loss.detach() / self.args.gradient_accumulation_steps
 
@@ -3758,6 +3760,52 @@ class Trainer:
     #
     # Deprecated code
     #
+    
+    def make_eval_mode(
+        self,
+        dataloader: DataLoader,
+        prediction_loss_only: Optional[bool] = None
+    ):
+        args = self.args
+
+        if not has_length(dataloader):
+            raise ValueError("dataloader must implement a working __len__")
+
+        prediction_loss_only = prediction_loss_only if prediction_loss_only is not None else args.prediction_loss_only
+
+        # if eval is called w/o train, handle model prep here
+        if self.is_deepspeed_enabled and self.model_wrapped is self.model:
+            _, _ = deepspeed_init(self, num_training_steps=0, inference=True)
+
+        model = self._wrap_model(self.model, training=False, dataloader=dataloader)
+
+        if len(self.accelerator._models) == 0 and model is self.model:
+            model = (
+                self.accelerator.prepare(model)
+                if self.is_deepspeed_enabled
+                else self.accelerator.prepare_model(model, evaluation_mode=True)
+            )
+
+            if self.is_fsdp_enabled:
+                self.model = model
+
+            # for the rest of this function `model` is the outside model, whether it was wrapped or not
+            if model is not self.model:
+                self.model_wrapped = model
+
+            # backward compatibility
+            if self.is_deepspeed_enabled:
+                self.deepspeed = self.model_wrapped
+
+        # if full fp16 or bf16 eval is wanted and this ``evaluation`` or ``predict`` isn't called
+        # while ``train`` is running, cast it to the right dtype first and then put on device
+        if not self.is_in_train:
+            if args.fp16_full_eval:
+                model = model.to(dtype=torch.float16, device=args.device)
+            elif args.bf16_full_eval:
+                model = model.to(dtype=torch.bfloat16, device=args.device)
+        
+        return
 
     def prediction_loop(
         self,

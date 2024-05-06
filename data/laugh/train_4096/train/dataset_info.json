@@ -1,0 +1,52 @@
+{
+  "builder_name": "json",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "json",
+  "dataset_size": 19519360,
+  "description": "",
+  "download_checksums": {
+    "/node_data/mok/module/LoRAMoE/data/laugh/train.json": {
+      "num_bytes": 20022144,
+      "checksum": null
+    }
+  },
+  "download_size": 20022144,
+  "features": {
+    "input_ids": {
+      "feature": {
+        "dtype": "int32",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "labels": {
+      "feature": {
+        "dtype": "int64",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "task_types": {
+      "dtype": "int64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 39541504,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 19519360,
+      "num_examples": 6354,
+      "dataset_name": "json"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

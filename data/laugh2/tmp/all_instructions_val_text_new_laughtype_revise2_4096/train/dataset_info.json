@@ -1,0 +1,52 @@
+{
+  "builder_name": "json",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "json",
+  "dataset_size": 2401518,
+  "description": "",
+  "download_checksums": {
+    "/node_data/mok/module/LoRAMoE/data/laugh2/all_instructions_val_text_new_laughtype_revise2.json": {
+      "num_bytes": 2460830,
+      "checksum": null
+    }
+  },
+  "download_size": 2460830,
+  "features": {
+    "input_ids": {
+      "feature": {
+        "dtype": "int32",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "labels": {
+      "feature": {
+        "dtype": "int64",
+        "_type": "Value"
+      },
+      "_type": "Sequence"
+    },
+    "task_types": {
+      "dtype": "int64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 4862348,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 2401518,
+      "num_examples": 739,
+      "dataset_name": "json"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

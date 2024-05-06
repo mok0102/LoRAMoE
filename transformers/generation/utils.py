@@ -2616,7 +2616,7 @@ class GenerationMixin:
             model_inputs = self.prepare_inputs_for_generation(input_ids, **model_kwargs)
 
             # forward pass to get next token
-            outputs,_ = self(
+            outputs = self(
                 **model_inputs,
                 return_dict=True,
                 output_attentions=output_attentions,
@@ -2667,6 +2667,7 @@ class GenerationMixin:
             model_kwargs = self._update_model_kwargs_for_generation(
                 outputs, model_kwargs, is_encoder_decoder=self.config.is_encoder_decoder
             )
+            # print('here', next_token_logits)
 
             # if eos_token was found in one sentence, set sentence to finished
             if eos_token_id_tensor is not None:

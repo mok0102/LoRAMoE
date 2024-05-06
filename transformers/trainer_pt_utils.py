@@ -489,6 +489,11 @@ class LabelSmoother:
         if shift_labels:
             logits = logits[..., :-1, :].contiguous()
             labels = labels[..., 1:].contiguous()
+            
+            print('got into shift_labels')
+            
+        print(logits.shape, labels.shape, 'here!!!!!')
+        assert 0
 
         log_probs = -nn.functional.log_softmax(logits, dim=-1)
         if labels.dim() == log_probs.dim() - 1:
