@@ -19,8 +19,8 @@ blc_weight=0.0
 pretrained_model=meta-llama/Llama-2-7b-hf
 pretrained_model_base=meta-llama/Llama-2-7b-hf
 tokenizer_path=meta-llama/Llama-2-7b-hf
-dataset_dir=./data/allinst_train_text_mix_new_laughtype_norev_r_revise_selfinst_syn2
-validation_file=./data/allinst_train_text_mix_new_laughtype_norev_r_revise_selfinst_syn2/val.json
+dataset_dir=./data
+validation_file=./data/val.json
 
 per_device_train_batch_size=1
 per_device_eval_batch_size=1
